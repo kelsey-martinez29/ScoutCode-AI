@@ -22,12 +22,13 @@ export const Route = createFileRoute("/setup")({
 function Setup() {
   const status = useServerFn(setupStatus);
   const setup = useServerFn(setupCounselor);
+  const [checkFailed, setCheckFailed] = useState(false);
   const [needs, setNeeds] = useState<boolean | null>(null);
   const [email, setEmail] = useState("");
   const [pw, setPw] = useState("");
   const [pw2, setPw2] = useState("");
   const [msg, setMsg] = useState<{ ok: boolean; text: string } | null>(null);
-  useEffect(() => { status().then((s) => setNeeds(s.needsSetup)).catch(() => setNeeds(false)); }, [status]);
+  useEffect(() => { status().then((s) => setNeeds(s.needsSetup)).catch(() => setCheckFailed(true)); }, [status]);
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -39,7 +40,7 @@ function Setup() {
 
   return (
     <AuthShell title="One-time setup" subtitle="Create the first counselor account. This page locks itself once a counselor exists.">
-      {needs === null ? <p>Checking…</p> : !needs ? (
+      {checkFailed ? <div role="alert" className="space-y-4"><h2 className="text-2xl font-bold">Setup connection failed</h2><p>The server could not check counselor setup. Verify the Supabase runtime variables and secret in Cloudflare, then reload this page.</p><Button onClick={() => window.location.reload()}>Try again</Button></div> : needs === null ? <p>Checking…</p> : !needs ? (
         <div className="space-y-4">
           <h2 className="text-2xl font-bold">Setup is complete</h2>
           {msg && <p className="text-forest">{msg.text}</p>}
