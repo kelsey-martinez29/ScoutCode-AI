@@ -1,22 +1,58 @@
 # ScoutCode AI
 
-Programming learning companion for Troop 99. React, TypeScript, TanStack Start, and Supabase, originally generated in Lovable.
+**Programming Merit Badge learning companion for Scouting America Troop 99**
 
-## Local development
+[Open the deployed app](https://scoutcode-ai.kelseymartinez12.workers.dev)
 
-Use Node.js 22.12+ or 24 and npm. Run `npm ci`, copy `.env.example` to `.env`, fill in your own Supabase settings, then run `npm run dev`.
+ScoutCode AI is a web-based learning experience designed to guide Scouts through Programming Merit Badge topics and keep their written workbook responses organized. The project also includes counselor-facing tools.
 
-Verification: `npm run typecheck`, `npm test`, `npm run build`, and `npm run deploy:check`.
+## Features
 
-## Cloudflare Workers
+- **Six learning modules** organized around the badge coursework.
+- **Workbook responses** so Scouts can record answers as they learn.
+- **Scout and counselor views** with distinct workflows.
+- **Counselor roster management** for organizing participants.
+- **Saved code drafts** for programming practice.
+- **Supabase-backed authentication and data storage**.
 
-Connect the repository main branch. Build command: `npm run build`. Deploy command: `npm run deploy`. Root directory: repository root. The build emits `.output/server/wrangler.json` and `.wrangler/deploy/config.json`; Wrangler automatically uses the generated configuration.
+> **Development status:** The deployed app and backend require further validation. The Code Lab still uses a Scratch placeholder; live code execution, AI tutoring, planned language updates, and printable workbook PDF export are not yet implemented. Completing the app does not automatically award a merit badge; Scouts must demonstrate requirements to an approved counselor.
+
+## Homepage screenshot
+
+A verified screenshot of the deployed homepage has not yet been added. Add a real capture as `docs/images/homepage.png` and replace this note with:
+
+`![ScoutCode AI homepage](docs/images/homepage.png)`
+
+## Technology
+
+- React, TypeScript, TanStack Start, Tailwind CSS
+- Supabase for authentication and persisted data
+- Cloudflare Workers for deployment
+- Vite, Vitest, ESLint
+
+## Run locally
+
+Requires Node.js 22.12+.
+
+```bash
+npm ci
+cp .env.example .env
+# Configure your own Supabase environment values
+npm run dev
+```
+
+Useful checks: `npm run typecheck`, `npm test`, `npm run build`, `npm run deploy:check`.
+
+## Deployment notes
+
+Cloudflare build command: `npm run build`; deploy command: `npm run deploy`.
 
 Build variables: `VITE_SUPABASE_URL`, `VITE_SUPABASE_PUBLISHABLE_KEY`.
-Runtime secrets: `SUPABASE_URL`, `SUPABASE_PUBLISHABLE_KEY`, `SUPABASE_SERVICE_ROLE_KEY` for the same Supabase project. Never prefix a service-role key with `VITE_`. No credentials are included in the repository.
 
-An independently reachable Supabase backend with the preserved schema and access policies is required for login and saved work. Building does not verify backend connectivity or account permissions. Provision the counselor before exposing a fresh database's first-account setup page publicly.
+Server-side secrets: `SUPABASE_URL`, `SUPABASE_PUBLISHABLE_KEY`, `SUPABASE_SERVICE_ROLE_KEY`. Never expose the service-role key through a `VITE_` variable or commit credentials.
 
-## Current scope
+The correct Supabase schema, policies, and account setup must be configured before using real Scout information.
 
-Six modules, workbook responses, Scout/counselor routes, roster management, and code-draft storage. Code execution, the planned Python/JavaScript/Lua update, AI tutoring, and workbook PDF generation remain incomplete. The restored Code Lab contains the original Scratch placeholder. Repository repair does not make these features complete or verify readiness for real Scout records.
+## Development approach
+
+Created with AI-assisted development and iterated to support learning, workbook completion, and counselor workflows.
